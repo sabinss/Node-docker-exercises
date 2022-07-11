@@ -1,0 +1,33 @@
+# version: '3'
+# services:
+#   node-app:
+#     build: .
+#     ports:
+#       - '3000:3000'
+#     volumes:
+#       - ./:/app
+#       - /app/node_modules
+#     environment:
+#       - PORT=3000
+#       - NODE_ENV=development
+#     command: npm run dev
+version: '3'
+services:
+  node-app:
+    build:
+      context: .
+      args:
+        NODE_ENV: development
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/app
+      # in bind mount volume we sync docker container with folder in your local drive
+      - /app/node_modules
+        # in anonoymous volume there is no any name assigned there, so there is high chance of deleting anonymous volumes:
+        # - for e.g when we docker docker volume ls -> it will list volumes with random number
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+    command: npm run dev
+# context defines the location of dockerfile

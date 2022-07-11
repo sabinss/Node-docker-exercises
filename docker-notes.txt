@@ -60,7 +60,7 @@ CMD ["npm","run","dev"]
 # -Solution: we can force docker container to rely on its own directory for node_modules insted of reaching to local directory
 # - we can do by creating another volume.
 # e.g docker run -v $(pwd):/app -v /app/node_modules -p 3000:3000 -d --name node-app node-image-app
-
+  use of /app/node_modules is not to override our node_modules inside docker container
 
 ## volume bind mount syncs and shares file in both direction
 # - meaning: if we create files in our local computer, it creates in docker container and vice versa

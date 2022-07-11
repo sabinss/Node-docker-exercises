@@ -1,0 +1,22 @@
+version: '3'
+services:
+  node-app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - PORT=3000
+
+  mongo:
+    image: mongo
+    environment:
+      - MONGODB_INITDB_ROOT_USERNAME=sabin
+      - MONGODB_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - mongo-db:/data/db
+      #  this is  named volumes:
+      #  here /data/db is directory where mongodb stores data-> this detail can be found in docker hub mongodb image
+      # named volume can be used accross multiple service
+
+volumes:
+  mongo-db:

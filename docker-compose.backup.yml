@@ -1,0 +1,35 @@
+version: '3'
+services:
+  node-app:
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      - PORT=3000
+    # env_file:
+    #   - ./.env
+# service in Docker compose represents docker container
+
+# Docker-compose command:configs:
+# - docker-compose up -d
+# -docker-compose down -v
+#     here -v deletes all the cached volumes that was created during container creation
+
+# Note:
+#   - when you make change in dockerfile docker-compose up doenot rebuild images, docker compose doesnot know file has been changed and it has to rebuild
+#   - docker compose is dumb, we need to define explicity to rebuild the images when file changes
+# command to rebuild docker file when file changes: docker-compose up -d --build
+
+## Docker compose configuration for development and production environment
+
+# 1. create docker.compose.yml file -> it is a shared file for both dev and production environment. Configuration that is configs:
+#   common for both dev and production is writter here.If there has to be made any update on dev and prod file then we override the shared docker.compose.yml file
+# 2. create docker-compose.dev.yml and docker-compose.prod.yml file
+# 3 to run specific docker.compose file run command: docker-compose -f docker.compose.yml -f docker-compose.dev.yml up -d
+# 4 In production we do not set bind mount i.e volumes:
+
+# Note: How to avoid installing devDependencies packages in production?
+# - in docker file update RUN npm install command with-> RUN npm install --only=production
